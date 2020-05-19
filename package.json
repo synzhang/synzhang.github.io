@@ -4,12 +4,24 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
+    "build": "next build && next export",
+    "start": "next start",
+    "deploy": "rm -rf node_modules/.cache && next build && next export && touch out/.nojekyll && git add out/ && git commit -m \"chore: deploy\" && git subtree push --prefix out origin master"
   },
   "dependencies": {
-    "next": "9.4.1",
+    "classnames": "2.2.6",
+    "date-fns": "2.13.0",
+    "gray-matter": "4.0.2",
+    "next": "9.4.0",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "remark": "12.0.0",
+    "remark-html": "11.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.1",
+    "@types/react": "^16.9.35",
+    "babel-plugin-transform-define": "^2.0.0",
+    "typescript": "^3.9.2"
   }
 }
