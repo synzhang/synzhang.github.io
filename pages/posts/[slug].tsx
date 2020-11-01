@@ -21,7 +21,7 @@ export default function Post({ post }) {
           <div>Loading…</div>
         ) : (
           <>
-            <article className="mb-32">
+            <article className="prose lg:prose-lg">
               <Head>
                 <title>
                   {post.title} | Next.js Blog Example with {CMS_NAME}
