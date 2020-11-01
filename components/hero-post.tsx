@@ -9,9 +9,9 @@ export default function HeroPost({
 }) {
   return (
     <section>
-      <h3>
+      <h3 className='text-2xl'>
         <Link as={`/posts/${slug}`} href="/posts/[slug]">
-          <a>{title}</a>
+          {title}
         </Link>
       </h3>
       <div>
