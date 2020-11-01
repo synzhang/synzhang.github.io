@@ -1,4 +1,4 @@
-@import '~han-css/dist/han.css';
+@import './tailwind.css';
 
 img {
   max-width: 100%;
