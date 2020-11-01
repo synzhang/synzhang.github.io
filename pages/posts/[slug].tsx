@@ -24,7 +24,7 @@ export default function Post({ post }) {
             <article className="prose lg:prose-lg">
               <Head>
                 <title>
-                  {post.title} | Next.js Blog Example with {CMS_NAME}
+                  {post.title} | {CMS_NAME}
                 </title>
                 <meta property="og:image" content={post.ogImage.url} />
               </Head>
