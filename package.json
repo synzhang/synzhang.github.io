@@ -9,6 +9,7 @@
     "deploy": "rm -rf node_modules/.cache && next build && next export && touch out/.nojekyll && git add out/ && git commit -m \"chore: deploy\" && git subtree push --prefix out origin master"
   },
   "dependencies": {
+    "@tailwindcss/typography": "0.2.0",
     "classnames": "2.2.6",
     "date-fns": "2.13.0",
     "gray-matter": "4.0.2",
