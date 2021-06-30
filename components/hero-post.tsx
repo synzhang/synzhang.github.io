@@ -17,6 +17,14 @@ export default function HeroPost({
       <div>
         <p>{excerpt}</p>
       </div>
+      <footer>
+        <time
+          className='text-gray-500'
+          dateTime={date}
+        >
+          {new Date(date).toLocaleDateString()}
+        </time>
+      </footer>
     </section>
   )
 }
