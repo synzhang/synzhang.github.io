@@ -8,8 +8,8 @@ export default function HeroPost({
   slug,
 }) {
   return (
-    <section>
-      <h3 className='text-2xl'>
+    <section className='border-b py-4 lg:py-6 lg:px-4'>
+      <h3 className='text-xl lg:text-3xl mb-2 lg:mb-4'>
         <Link as={`/posts/${slug}`} href="/posts/[slug]">
           {title}
         </Link>
