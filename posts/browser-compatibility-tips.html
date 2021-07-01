@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#000000"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#000000"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#000"/><link rel="alternate" type="application/rss+xml" href="/feed.xml"/><meta name="description" content="Anything worth spreading."/><meta property="og:image" content="https://og-image.now.sh/Next.js%20Blog%20Starter%20Example.png?theme=light&amp;md=1&amp;fontSize=100px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><title>浏览器兼容性 | Honk</title><meta property="og:image" content=""/><link rel="preload" href="/_next/static/css/9b3600acb3b6122483f5.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9b3600acb3b6122483f5.css" data-n-g=""/><noscript data-n-css="true"></noscript><link rel="preload" href="/_next/static/chunks/main-3b2c4af7ee14fea01ffe.js" as="script"/><link rel="preload" href="/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" as="script"/><link rel="preload" href="/_next/static/chunks/framework.2113c6061a2f456066a1.js" as="script"/><link rel="preload" href="/_next/static/chunks/commons.65db85aa1f84ff9c0177.js" as="script"/><link rel="preload" href="/_next/static/chunks/pages/_app-8fb9a5f2ab428e436983.js" as="script"/><link rel="preload" href="/_next/static/chunks/2c3b9bffc7150b37a7b3810dfcf1c0b0fac2bd18.855a750fb79d561ab70f.js" as="script"/><link rel="preload" href="/_next/static/chunks/pages/posts/%5Bslug%5D-93c9decfcd8617254856.js" as="script"/></head><body><div id="__next"><header class="max-w-3xl mx-4 lg:mx-auto py-6 lg:px-4 mb-6 lg:mb-10 border-b-2"><h1 class="text-6xl font-bold"><a href="/">Honk</a><small class="block lg:inline-block font-normal text-xl lg:text-3xl text-gray-600 lg:ml-4">Anything worth spreading.</small></h1></header><main><div class="max-w-3xl mx-4 lg:mx-auto"><article class="prose lg:prose-lg"><h1>浏览器兼容性</h1><div><div><h2>IE hasLayout</h2>
+<h3>简介</h3>
+<p>“Layout”是一个 <code>Internet Explorer for Windows 的私有概念</code>，它决定了一个元素<strong>如何显示以及约束其包含的内容</strong>、<strong>如何与其他元素交互和建立联系</strong>、<strong>如何响应和传递应用程序事件、用户事件</strong>等。</p>
+<p>一个元素“拥有 Layout” 的时候，是指它的微软专有属性 hasLayout 为此被设为了 true （在 IE Developer Toolbar 下，“拥有 Layout” 的元素，通常显示为“haslayout = -1”）。一些元素默认就“拥有 Layout” ，其他元素可通过设置某些 CSS 属性“拥有 Layout”（hasLayout 无法通过某一个 CSS 声明直接设定，而是借助一些 CSS 声明悄悄地“拥有 Layout”）。但这个过程是<code>不可逆转</code>的，没有办法设置 hasLayout = false ，除非把一开始那些触发 hasLayout = true 的 CSS 属性去除或重置。</p>
+<p>默认“拥有 Layout” 的元素（不完全列表）</p>
+<ul>
+<li>body and html</li>
+<li>table, tr, th, td</li>
+<li>img</li>
+<li>hr</li>
+<li>input, button, file, select, textarea, field set</li>
+<li>marquee</li>
+<li>frameset, frame, iframe</li>
+<li>objects, applets, embed</li>
+</ul>
+<p>默认没“拥有 Layout”的元素（不完全列表）</p>
+<ul>
+<li>div</li>
+<li>span</li>
+</ul>
+<h3>与 hasLayout 有关的问题（包括但不限于）</h3>
+<ul>
+<li>IE 很多常见的浮动臭虫。</li>
+<li>元素本身对一些基本属性的异常处理问题。</li>
+<li>容器和其子孙之间的空白边重叠问题。</li>
+<li>使用列表时遇到的诸多问题。</li>
+<li>背景图像的定位偏差问题。</li>
+<li>使用脚本时遇到的浏览器之间处理不一致的问题。</li>
+</ul>
+<h3>用于激活 hasLayout 的 CSS 属性设置</h3>
+<ul>
+<li>
+<p>width: 除 “auto” 外的任意值。</p>
+</li>
+<li>
+<p>height: 除 “auto” 外的任意值。</p>
+</li>
+<li>
+<p>zoom: 除 “normal” 外的任意值。</p>
+<p>IE 专有属性。zoom: 1 可以临时用做调试，但是在 IE5.0 中不支持。</p>
+</li>
+<li>
+<p>position: absolute | fixed</p>
+</li>
+<li>
+<p>float: left | right</p>
+</li>
+<li>
+<p>display: inline-block</p>
+<p>当一个内联级别的元素需要 layout 的时候往往就要用到它，这也可能也是这个 CSS 属性的唯一效果——让某个元素“拥有 layout”。“inline-block 行为”在IE中是可以实现的，但是非常与众不同。</p>
+</li>
+<li>
+<p>min-width: 任意值。</p>
+<p>IE 中从 IE 7 开始支持该属性。即使设为0也可以让该元素的 haslayout = true。</p>
+</li>
+<li>
+<p>min-height: 任意值。</p>
+<p>IE 中从 IE 7 开始支持该属性。即使设为0也可以让该元素的 haslayout = true。</p>
+</li>
+<li>
+<p>max-width: 除 “none” 之外的任意值</p>
+<p>IE 中从 IE 7 开始支持该属性。</p>
+</li>
+<li>
+<p>max-height: 除 “none” 之外的任意值。</p>
+<p>IE 中从 IE 7 开始支持该属性。</p>
+</li>
+<li>
+<p>overflow: hidden | scroll | auto</p>
+<p>在 IE 7 中，overflow 也变成了一个 layout 触发器，这个属性在之前版本 IE 中没有触发 layout 的功能。</p>
+</li>
+<li>
+<p>overflow-x | -y: hidden | scroll | auto</p>
+<p>overflow-x 和 overflow-y 是 CSS3 盒模型中的属性，尚未得到浏览器的广泛支持。他们在之前版本IE中没有触发 layout 的功能。</p>
+</li>
+<li>
+<p>writing-mode: tb-rl</p>
+<p>IE 专有属性，但新规范已剔除该属性。</p>
+</li>
+</ul>
+<h3>有关内联级别元素</h3>
+<p>对于内联元素（默认即为内联的元素或者 display: inline 的元素）：</p>
+<p>width 和 height 只在 IE5.x 下和 IE6 或更新版本的 quirks 模式下触发 hasLayout 。而对于 IE6，如果浏览器运行于标准兼容模式下，内联元素会忽略 width 或 height 属性，所以设置 width 或 height 不能在此种情况下令该元素具有 layout。</p>
+<p>具有”layout” 的元素如果同时也 display: inline ，那么它的行为就和标准中所说的 inline-block 很类似了：在段落中和普通文字一样在水平方向和连续排列，受 vertical-align 影响，并且大小可以根据内容自适应调整。这也可以解释为什么单单在 IE/Win 中内联元素可以包含块级元素而少出问题，因为在别的浏览器中 display: inline 就是内联，不像 IE/Win 一旦内联元素拥有 layout 还会变成 inline-block。</p>
+<h3>重置 hasLayout</h3>
+<p>在另一条规则中重设以下属性为默认值将重置(或撤销)hasLayout，如果没有其他属性再添加 hasLayout 的话：</p>
+<ul>
+<li>width, height (设为 “auto”)</li>
+<li>max-width, max-height (设为 “none”)(在 IE 7 中)</li>
+<li>position (设为 “static”)</li>
+<li>float (设为 “none”)</li>
+<li>overflow (设为 “visible”) (在 IE 7 中)</li>
+<li>zoom (设为 “normal”)</li>
+<li>writing-mode (从 “tb-rl” 设为 “lr-t”)</li>
+</ul>
+<p>display 属性的不同：当用”inline-block”设置了 haslayout = true 时，就算在一条独立的规则中覆盖这个属性为”block”或”inline”，haslayout 这个标志位也不会被重置为 false。</p>
+<p>把 mid-width, mid-height 设为它们的默认值”0″仍然会赋予 hasLayout，但是 IE 7 却可以接受一个不合法的属性”auto”来重置 hasLayout。</p>
+<ul>
+<li>在可点击和悬停的元素上只使用 a 标签，因为IE6只认识对 a 标签的 CSS hover 效果。</li>
+<li>使用 !important 或高级选择器来区分 IE 6。</li>
+<li>IE6 下是可以使用 !important 的，但相同选择器内如果 !important 不是写在最后，则 !important 失效。相同元素的不同选择器下，单独定义同一个属性的值，不管选择器的顺序如何，!important 仍然会生效。</li>
+<li>避免百分比单位。</li>
+<li>IE 6 中不支持多重修饰类，如： .multiple.classes 。IE6 渲染的具体原理是：将 .multiple.classes 渲染成 AllSelector.classes ，也即最终渲染为最后一个 class 。</li>
+<li>IE 6 不支持子选择器。</li>
+</ul>
+<h2>Block Formatting Contexts(块级格式化上下文)</h2>
+<h3>简介</h3>
+<p>Block Formatting Context （块格式化上下文）是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何<strong>对其内容进行定位</strong>，以及<strong>与其他元素的关系和相互作用</strong>。触发了 BFC 的元素将形成一个隔离的独立容器，容器里面的子元素不会在布局上影响到外面的元素，外面的元素也不会影响到里面的子元素。在 CSS3 中，BFC 叫做 Flow Root 。</p>
+<p>另外注意，IE6 - 7 并不支持 W3C 的 BFC ，而是使用自产的 hasLayout 。从表现上来说，它跟 BFC 很相似，只是 hasLayout 自身存在很多问题，导致了 IE6-7 中一系列的 bug 。触发 hasLayout 的条件与触发 BFC 有些相似。</p>
+<p>一个BFC是CSS可视化渲染页面的一部分，它是把一组块级box和浮动元素放在一起布局的区域。</p>
+<p>BFC(Block formatting context)直译为"块级格式化上下文"。它<strong>是一个独立的渲染区域</strong>，只有<strong>Block-level box</strong>参与（在下面有解释）， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。</p>
+<p>我们常说的文档流其实分为定位流、浮动流和普通流三种。而<strong>普通流其实就是指BFC中的FC</strong>。</p>
+<p><strong>FC</strong>是formatting context的首字母缩写，直译过来是格式化上下文，它<strong>是页面中的一块渲染区域</strong>，有一套渲染规则，决定了其<strong>子元素如何布局，以及和其他元素之间的关系和作用。</strong></p>
+<h3>BFC 的作用</h3>
+<ul>
+<li>在块级格式化上下文中（即父元素触发 BFC ），第一个子元素的 margin-top 将不会与父元素的 margin-top （如果有的话）重叠。（待进一步确认，Demo 测试普通文档流中也没发生重叠）</li>
+<li>在块级格式化上下文中，触发了 BFC 的父元素会包含浮动的子元素。</li>
+<li>在块级格式化上下文中，元素都是从一个包含块的顶部开始，一个接一个排列着，浮动元素也遵照此规则。</li>
+<li>触发了 BFC 的非浮动元素 border 外延（而不是 margin 外延）不会覆盖周围浮动元素的 margin 外延。</li>
+</ul>
+<p>注意，在块级格式化上下文中，两个兄弟元素之间的垂直外边距仍然会产生叠加。</p>
+<h3>触发 BFC</h3>
+<ul>
+<li>
+<p>float: left | right</p>
+</li>
+<li>
+<p>position: absolute | fixed</p>
+</li>
+<li>
+<p>display: inline-block | inline-table | table | table-cell | table-caption（CSS 3中增加）</p>
+<p>"display:table" 本身并不产生 BFC，而是由它产生匿名框，匿名框中包含 "display:table-cell" 的框会产 BFC。 总之，对于 "display:table" 的元素，产生 BFC 的是匿名框而不是 "display:table"。</p>
+</li>
+<li>
+<p>overflow: auto | hidden | scroll</p>
+</li>
+</ul>
+<h2>总结</h2>
+<p>既然 hasLayout 有着跟 BFC 相似的功能，那么在实际开发中，就要为需要触发 BFC 的元素同时触发 hasLayout ，这样 BFC 和 hasLayout 具有的一些特殊性质可以在现代浏览器和 IE 中同时产生，避免一个元素在不同浏览器间的表现因为 BFC 或 hasLayout 出现差异。事实上，在实际开发中很多莫名其妙的问题其实都是因此而产生的。当然同样地，如果一个元素没有触发 BFC ，也要尽量保证它没有触发 hasLayout 。</p>
+</div></div></article></div></main><footer class="max-w-3xl mx-auto py-6"></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"浏览器兼容性","date":"2012-07-19T22:16:00.000Z","slug":"browser-compatibility-tips","content":"\u003ch2\u003eIE hasLayout\u003c/h2\u003e\n\u003ch3\u003e简介\u003c/h3\u003e\n\u003cp\u003e“Layout”是一个 \u003ccode\u003eInternet Explorer for Windows 的私有概念\u003c/code\u003e，它决定了一个元素\u003cstrong\u003e如何显示以及约束其包含的内容\u003c/strong\u003e、\u003cstrong\u003e如何与其他元素交互和建立联系\u003c/strong\u003e、\u003cstrong\u003e如何响应和传递应用程序事件、用户事件\u003c/strong\u003e等。\u003c/p\u003e\n\u003cp\u003e一个元素“拥有 Layout” 的时候，是指它的微软专有属性 hasLayout 为此被设为了 true （在 IE Developer Toolbar 下，“拥有 Layout” 的元素，通常显示为“haslayout = -1”）。一些元素默认就“拥有 Layout” ，其他元素可通过设置某些 CSS 属性“拥有 Layout”（hasLayout 无法通过某一个 CSS 声明直接设定，而是借助一些 CSS 声明悄悄地“拥有 Layout”）。但这个过程是\u003ccode\u003e不可逆转\u003c/code\u003e的，没有办法设置 hasLayout = false ，除非把一开始那些触发 hasLayout = true 的 CSS 属性去除或重置。\u003c/p\u003e\n\u003cp\u003e默认“拥有 Layout” 的元素（不完全列表）\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ebody and html\u003c/li\u003e\n\u003cli\u003etable, tr, th, td\u003c/li\u003e\n\u003cli\u003eimg\u003c/li\u003e\n\u003cli\u003ehr\u003c/li\u003e\n\u003cli\u003einput, button, file, select, textarea, field set\u003c/li\u003e\n\u003cli\u003emarquee\u003c/li\u003e\n\u003cli\u003eframeset, frame, iframe\u003c/li\u003e\n\u003cli\u003eobjects, applets, embed\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e默认没“拥有 Layout”的元素（不完全列表）\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ediv\u003c/li\u003e\n\u003cli\u003espan\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e与 hasLayout 有关的问题（包括但不限于）\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003eIE 很多常见的浮动臭虫。\u003c/li\u003e\n\u003cli\u003e元素本身对一些基本属性的异常处理问题。\u003c/li\u003e\n\u003cli\u003e容器和其子孙之间的空白边重叠问题。\u003c/li\u003e\n\u003cli\u003e使用列表时遇到的诸多问题。\u003c/li\u003e\n\u003cli\u003e背景图像的定位偏差问题。\u003c/li\u003e\n\u003cli\u003e使用脚本时遇到的浏览器之间处理不一致的问题。\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e用于激活 hasLayout 的 CSS 属性设置\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003cp\u003ewidth: 除 “auto” 外的任意值。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eheight: 除 “auto” 外的任意值。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003ezoom: 除 “normal” 外的任意值。\u003c/p\u003e\n\u003cp\u003eIE 专有属性。zoom: 1 可以临时用做调试，但是在 IE5.0 中不支持。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eposition: absolute | fixed\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003efloat: left | right\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003edisplay: inline-block\u003c/p\u003e\n\u003cp\u003e当一个内联级别的元素需要 layout 的时候往往就要用到它，这也可能也是这个 CSS 属性的唯一效果——让某个元素“拥有 layout”。“inline-block 行为”在IE中是可以实现的，但是非常与众不同。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003emin-width: 任意值。\u003c/p\u003e\n\u003cp\u003eIE 中从 IE 7 开始支持该属性。即使设为0也可以让该元素的 haslayout = true。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003emin-height: 任意值。\u003c/p\u003e\n\u003cp\u003eIE 中从 IE 7 开始支持该属性。即使设为0也可以让该元素的 haslayout = true。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003emax-width: 除 “none” 之外的任意值\u003c/p\u003e\n\u003cp\u003eIE 中从 IE 7 开始支持该属性。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003emax-height: 除 “none” 之外的任意值。\u003c/p\u003e\n\u003cp\u003eIE 中从 IE 7 开始支持该属性。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eoverflow: hidden | scroll | auto\u003c/p\u003e\n\u003cp\u003e在 IE 7 中，overflow 也变成了一个 layout 触发器，这个属性在之前版本 IE 中没有触发 layout 的功能。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eoverflow-x | -y: hidden | scroll | auto\u003c/p\u003e\n\u003cp\u003eoverflow-x 和 overflow-y 是 CSS3 盒模型中的属性，尚未得到浏览器的广泛支持。他们在之前版本IE中没有触发 layout 的功能。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003ewriting-mode: tb-rl\u003c/p\u003e\n\u003cp\u003eIE 专有属性，但新规范已剔除该属性。\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003e有关内联级别元素\u003c/h3\u003e\n\u003cp\u003e对于内联元素（默认即为内联的元素或者 display: inline 的元素）：\u003c/p\u003e\n\u003cp\u003ewidth 和 height 只在 IE5.x 下和 IE6 或更新版本的 quirks 模式下触发 hasLayout 。而对于 IE6，如果浏览器运行于标准兼容模式下，内联元素会忽略 width 或 height 属性，所以设置 width 或 height 不能在此种情况下令该元素具有 layout。\u003c/p\u003e\n\u003cp\u003e具有”layout” 的元素如果同时也 display: inline ，那么它的行为就和标准中所说的 inline-block 很类似了：在段落中和普通文字一样在水平方向和连续排列，受 vertical-align 影响，并且大小可以根据内容自适应调整。这也可以解释为什么单单在 IE/Win 中内联元素可以包含块级元素而少出问题，因为在别的浏览器中 display: inline 就是内联，不像 IE/Win 一旦内联元素拥有 layout 还会变成 inline-block。\u003c/p\u003e\n\u003ch3\u003e重置 hasLayout\u003c/h3\u003e\n\u003cp\u003e在另一条规则中重设以下属性为默认值将重置(或撤销)hasLayout，如果没有其他属性再添加 hasLayout 的话：\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003ewidth, height (设为 “auto”)\u003c/li\u003e\n\u003cli\u003emax-width, max-height (设为 “none”)(在 IE 7 中)\u003c/li\u003e\n\u003cli\u003eposition (设为 “static”)\u003c/li\u003e\n\u003cli\u003efloat (设为 “none”)\u003c/li\u003e\n\u003cli\u003eoverflow (设为 “visible”) (在 IE 7 中)\u003c/li\u003e\n\u003cli\u003ezoom (设为 “normal”)\u003c/li\u003e\n\u003cli\u003ewriting-mode (从 “tb-rl” 设为 “lr-t”)\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003edisplay 属性的不同：当用”inline-block”设置了 haslayout = true 时，就算在一条独立的规则中覆盖这个属性为”block”或”inline”，haslayout 这个标志位也不会被重置为 false。\u003c/p\u003e\n\u003cp\u003e把 mid-width, mid-height 设为它们的默认值”0″仍然会赋予 hasLayout，但是 IE 7 却可以接受一个不合法的属性”auto”来重置 hasLayout。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e在可点击和悬停的元素上只使用 a 标签，因为IE6只认识对 a 标签的 CSS hover 效果。\u003c/li\u003e\n\u003cli\u003e使用 !important 或高级选择器来区分 IE 6。\u003c/li\u003e\n\u003cli\u003eIE6 下是可以使用 !important 的，但相同选择器内如果 !important 不是写在最后，则 !important 失效。相同元素的不同选择器下，单独定义同一个属性的值，不管选择器的顺序如何，!important 仍然会生效。\u003c/li\u003e\n\u003cli\u003e避免百分比单位。\u003c/li\u003e\n\u003cli\u003eIE 6 中不支持多重修饰类，如： .multiple.classes 。IE6 渲染的具体原理是：将 .multiple.classes 渲染成 AllSelector.classes ，也即最终渲染为最后一个 class 。\u003c/li\u003e\n\u003cli\u003eIE 6 不支持子选择器。\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003eBlock Formatting Contexts(块级格式化上下文)\u003c/h2\u003e\n\u003ch3\u003e简介\u003c/h3\u003e\n\u003cp\u003eBlock Formatting Context （块格式化上下文）是 W3C CSS 2.1 规范中的一个概念，它决定了元素如何\u003cstrong\u003e对其内容进行定位\u003c/strong\u003e，以及\u003cstrong\u003e与其他元素的关系和相互作用\u003c/strong\u003e。触发了 BFC 的元素将形成一个隔离的独立容器，容器里面的子元素不会在布局上影响到外面的元素，外面的元素也不会影响到里面的子元素。在 CSS3 中，BFC 叫做 Flow Root 。\u003c/p\u003e\n\u003cp\u003e另外注意，IE6 - 7 并不支持 W3C 的 BFC ，而是使用自产的 hasLayout 。从表现上来说，它跟 BFC 很相似，只是 hasLayout 自身存在很多问题，导致了 IE6-7 中一系列的 bug 。触发 hasLayout 的条件与触发 BFC 有些相似。\u003c/p\u003e\n\u003cp\u003e一个BFC是CSS可视化渲染页面的一部分，它是把一组块级box和浮动元素放在一起布局的区域。\u003c/p\u003e\n\u003cp\u003eBFC(Block formatting context)直译为\"块级格式化上下文\"。它\u003cstrong\u003e是一个独立的渲染区域\u003c/strong\u003e，只有\u003cstrong\u003eBlock-level box\u003c/strong\u003e参与（在下面有解释）， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。\u003c/p\u003e\n\u003cp\u003e我们常说的文档流其实分为定位流、浮动流和普通流三种。而\u003cstrong\u003e普通流其实就是指BFC中的FC\u003c/strong\u003e。\u003c/p\u003e\n\u003cp\u003e\u003cstrong\u003eFC\u003c/strong\u003e是formatting context的首字母缩写，直译过来是格式化上下文，它\u003cstrong\u003e是页面中的一块渲染区域\u003c/strong\u003e，有一套渲染规则，决定了其\u003cstrong\u003e子元素如何布局，以及和其他元素之间的关系和作用。\u003c/strong\u003e\u003c/p\u003e\n\u003ch3\u003eBFC 的作用\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e在块级格式化上下文中（即父元素触发 BFC ），第一个子元素的 margin-top 将不会与父元素的 margin-top （如果有的话）重叠。（待进一步确认，Demo 测试普通文档流中也没发生重叠）\u003c/li\u003e\n\u003cli\u003e在块级格式化上下文中，触发了 BFC 的父元素会包含浮动的子元素。\u003c/li\u003e\n\u003cli\u003e在块级格式化上下文中，元素都是从一个包含块的顶部开始，一个接一个排列着，浮动元素也遵照此规则。\u003c/li\u003e\n\u003cli\u003e触发了 BFC 的非浮动元素 border 外延（而不是 margin 外延）不会覆盖周围浮动元素的 margin 外延。\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e注意，在块级格式化上下文中，两个兄弟元素之间的垂直外边距仍然会产生叠加。\u003c/p\u003e\n\u003ch3\u003e触发 BFC\u003c/h3\u003e\n\u003cul\u003e\n\u003cli\u003e\n\u003cp\u003efloat: left | right\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eposition: absolute | fixed\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003edisplay: inline-block | inline-table | table | table-cell | table-caption（CSS 3中增加）\u003c/p\u003e\n\u003cp\u003e\"display:table\" 本身并不产生 BFC，而是由它产生匿名框，匿名框中包含 \"display:table-cell\" 的框会产 BFC。 总之，对于 \"display:table\" 的元素，产生 BFC 的是匿名框而不是 \"display:table\"。\u003c/p\u003e\n\u003c/li\u003e\n\u003cli\u003e\n\u003cp\u003eoverflow: auto | hidden | scroll\u003c/p\u003e\n\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch2\u003e总结\u003c/h2\u003e\n\u003cp\u003e既然 hasLayout 有着跟 BFC 相似的功能，那么在实际开发中，就要为需要触发 BFC 的元素同时触发 hasLayout ，这样 BFC 和 hasLayout 具有的一些特殊性质可以在现代浏览器和 IE 中同时产生，避免一个元素在不同浏览器间的表现因为 BFC 或 hasLayout 出现差异。事实上，在实际开发中很多莫名其妙的问题其实都是因此而产生的。当然同样地，如果一个元素没有触发 BFC ，也要尽量保证它没有触发 hasLayout 。\u003c/p\u003e\n","ogImage":{"url":""}}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"browser-compatibility-tips"},"buildId":"dvgtv3hcyTARkNgObVzCG","nextExport":false,"isFallback":false,"gsp":true,"head":[["meta",{"name":"viewport","content":"width=device-width"}],["meta",{"charSet":"utf-8"}],["link",{"rel":"apple-touch-icon","sizes":"180x180","href":"/favicon/apple-touch-icon.png"}],["link",{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon/favicon-32x32.png"}],["link",{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon/favicon-16x16.png"}],["link",{"rel":"manifest","href":"/favicon/site.webmanifest"}],["link",{"rel":"mask-icon","href":"/favicon/safari-pinned-tab.svg","color":"#000000"}],["link",{"rel":"shortcut icon","href":"/favicon/favicon.ico"}],["meta",{"name":"msapplication-TileColor","content":"#000000"}],["meta",{"name":"msapplication-config","content":"/favicon/browserconfig.xml"}],["meta",{"name":"theme-color","content":"#000"}],["link",{"rel":"alternate","type":"application/rss+xml","href":"/feed.xml"}],["meta",{"name":"description","content":"Anything worth spreading."}],["meta",{"property":"og:image","content":"https://og-image.now.sh/Next.js%20Blog%20Starter%20Example.png?theme=light\u0026md=1\u0026fontSize=100px\u0026images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"}],["title",{"children":"浏览器兼容性 | Honk"}],["meta",{"property":"og:image","content":""}]]}</script><script nomodule="" src="/_next/static/chunks/polyfills-11c8eba6a84e3fddec04.js"></script><script src="/_next/static/chunks/main-3b2c4af7ee14fea01ffe.js" async=""></script><script src="/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" async=""></script><script src="/_next/static/chunks/framework.2113c6061a2f456066a1.js" async=""></script><script src="/_next/static/chunks/commons.65db85aa1f84ff9c0177.js" async=""></script><script src="/_next/static/chunks/pages/_app-8fb9a5f2ab428e436983.js" async=""></script><script src="/_next/static/chunks/2c3b9bffc7150b37a7b3810dfcf1c0b0fac2bd18.855a750fb79d561ab70f.js" async=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-93c9decfcd8617254856.js" async=""></script><script src="/_next/static/dvgtv3hcyTARkNgObVzCG/_buildManifest.js" async=""></script><script src="/_next/static/dvgtv3hcyTARkNgObVzCG/_ssgManifest.js" async=""></script></body></html>
