@@ -1,0 +1,423 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="viewport" content="width=device-width"/><meta charSet="utf-8"/><link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png"/><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"/><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"/><link rel="manifest" href="/favicon/site.webmanifest"/><link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#000000"/><link rel="shortcut icon" href="/favicon/favicon.ico"/><meta name="msapplication-TileColor" content="#000000"/><meta name="msapplication-config" content="/favicon/browserconfig.xml"/><meta name="theme-color" content="#000"/><link rel="alternate" type="application/rss+xml" href="/feed.xml"/><meta name="description" content="Anything worth spreading."/><meta property="og:image" content="https://og-image.now.sh/Next.js%20Blog%20Starter%20Example.png?theme=light&amp;md=1&amp;fontSize=100px&amp;images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"/><title>Web 前端开发风格指南 | Honk</title><meta property="og:image" content=""/><link rel="preload" href="/_next/static/css/9b3600acb3b6122483f5.css" as="style"/><link rel="stylesheet" href="/_next/static/css/9b3600acb3b6122483f5.css" data-n-g=""/><noscript data-n-css="true"></noscript><link rel="preload" href="/_next/static/chunks/main-3b2c4af7ee14fea01ffe.js" as="script"/><link rel="preload" href="/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" as="script"/><link rel="preload" href="/_next/static/chunks/framework.2113c6061a2f456066a1.js" as="script"/><link rel="preload" href="/_next/static/chunks/commons.65db85aa1f84ff9c0177.js" as="script"/><link rel="preload" href="/_next/static/chunks/pages/_app-8fb9a5f2ab428e436983.js" as="script"/><link rel="preload" href="/_next/static/chunks/2c3b9bffc7150b37a7b3810dfcf1c0b0fac2bd18.855a750fb79d561ab70f.js" as="script"/><link rel="preload" href="/_next/static/chunks/pages/posts/%5Bslug%5D-93c9decfcd8617254856.js" as="script"/></head><body><div id="__next"><header class="max-w-3xl mx-4 lg:mx-auto py-6 lg:px-4 mb-6 lg:mb-10 border-b-2"><h1 class="text-6xl font-bold"><a href="/">Honk</a><small class="block lg:inline-block font-normal text-xl lg:text-3xl text-gray-600 lg:ml-4">Anything worth spreading.</small></h1></header><main><div class="max-w-3xl mx-4 lg:mx-auto"><article class="prose lg:prose-lg"><h1>Web 前端开发风格指南</h1><div><div><p>风格指南用于统一开发方式与代码书写风格。</p>
+<p>推荐使用 EditorConfig 来配置编辑器，方便编写统一书写风格的代码。同时使用 Lint 来做代码质量检测。</p>
+<h2>基本规范</h2>
+<p>基本规范可引用各语言的社区推荐风格，如：</p>
+<ol>
+<li>Google:<ul>
+<li>Google HTML/CSS Style Guide</li>
+<li>Google JavaScript Style Guide</li>
+</ul></li>
+<li>GitHub:<ul>
+<li>Markup &#x26; Templates Styleguide</li>
+<li>CSS Styleguide</li>
+<li>JavaScript Styleguide</li>
+</ul></li>
+<li>Other:<ul>
+<li>HTML</li>
+<li>CSS</li>
+<li>Sass</li>
+<li>JavaScript</li>
+</ul></li>
+</ol>
+<h2>注释</h2>
+<p>应用场景：</p>
+<ol>
+<li>模块描述</li>
+<li>函数方法</li>
+<li>大段代码</li>
+<li>复杂算法</li>
+<li>Hack</li>
+</ol>
+<p>文档化：</p>
+<p>按照文档规范来书写易于阅读，且能被机器解读的注释，配合使用对应的预处理器，可以自动生成文档。</p>
+<ul>
+<li>KSS</li>
+<li>JSDoc</li>
+<li>TomDoc</li>
+</ul>
+<p>风格：</p>
+<p>comment.html</p>
+<pre><code class="language-html">&#x3C;header>
+&#x3C;/header> &#x3C;!-- / header -->
+
+&#x3C;div id="wrapper">
+&#x3C;/div> &#x3C;!-- / #wrapper -->
+
+&#x3C;div class="module">
+&#x3C;/div> &#x3C;!-- / .module -->
+</code></pre>
+<p>comment.css</p>
+<pre><code class="language-css">/* ==========================================================================
+   区块注释段
+   ========================================================================== */
+
+/* 子区块注释段
+   -------------------------------------------------------------------------- */
+
+/**
+ * 分组注释段
+ * 用于多行的释义或文档。
+ * 1. 注释1。
+ * 2. 注释2。
+ */
+
+.selector {
+  property1: value1;  /* 1 */
+  property2: value2;  /* 2 */
+}
+
+/* 基本注释 */
+</code></pre>
+<p>comment.scss</p>
+<pre><code class="language-scss">// ==========================================================================
+// 区块注释段
+// ==========================================================================
+
+// 子区块注释段
+// --------------------------------------------------------------------------
+
+//
+// 分组注释段
+// 用于多行的释义或文档。
+//
+
+// 基本注释
+</code></pre>
+<p>component.scss</p>
+<pre><code class="language-scss">// A button suitable for giving a star to someone.
+// Experimental: An alternative signup button styling used in AB Test #195.
+// Deprecated: Styling for legacy wikis. We'll drop support for these wikis on
+// July 13, 2007.
+//
+// :hover             - Subtle hover highlight.
+// .star-given        - A highlight indicating you've already given a star.
+// .star-given:hover  - Subtle hover highlight on top of star-given styling.
+// .disabled          - Dims the button to indicate it cannot be used.
+//
+// Compatible in IE6+, Firefox 2+, Safari 4+.
+// Compatibility untested.
+//
+// Styleguide 2.1.3.
+// No styleguide reference.
+</code></pre>
+<p>mixin.scss</p>
+<pre><code class="language-scss">// Creates a linear gradient background, from top to bottom.
+//
+// $start - The color hex at the top.
+// $end   - The color hex at the bottom.
+</code></pre>
+<p>comment.js</p>
+<pre><code class="language-js">/* ==========================================================================
+   区块注释段
+   ========================================================================== */
+
+/* 子区块注释段
+   -------------------------------------------------------------------------- */
+
+/**
+ * 模块简介
+ *
+ * 具体细节
+ *
+ * @param    {string}  args1  参数 1。
+ * @param    {array}   args2  参数 2。
+ * @returns  void
+ */
+</code></pre>
+<h2>UI 组件设计模式</h2>
+<p>相对于以页面为单位的开发方式，建议以构建组件系统的方式来开发。</p>
+<ul>
+<li>Atomic Design</li>
+<li>BEM</li>
+<li>OOCSS</li>
+<li>SMACSS</li>
+</ul>
+<p>为了合理划分组件并分离内容、样式、行为，建议采用如下设计模式。</p>
+<p>原子 － 分子 － 组织 － 模版 － 页面</p>
+<h3>HTML（语义）</h3>
+<p>class 区分 UI 与业务，使用attribute加强语义与配置行为。</p>
+<pre><code class="language-html">&#x3C;div class="model component" attribute="value" data-attribute="value">
+  &#x3C;div class="component-descendant">
+    ...
+  &#x3C;/div>
+&#x3C;/div>&#x3C;!-- / .component -->
+    
+&#x3C;div class="component--modifier" data-attribute="value">
+  &#x3C;div class="component-descendant is-state">
+    ...
+  &#x3C;/div>
+&#x3C;/div>&#x3C;!-- / .component--modifier -->
+</code></pre>
+<h3>CSS（组件）</h3>
+<p>规则书写</p>
+<ol>
+<li>Layout: The position of the element in space. Eg.: position, top, z-index.</li>
+<li>Box: The element itself. Eg.: display, overflow, box-sizing.</li>
+<li>Visual: Design of the element. Eg.: color, border, background.</li>
+<li>Type: Typesetting of the element. Eg.: font-family, text-transform.</li>
+</ol>
+<p>模块分组</p>
+<pre><code>Abstracts ----------- 抽象
+  ├── Variables ----- 变量
+  |   └── Palette --- 调色盘
+  ├── Functions ----- 函数
+  ├── Mixins -------- 混合宏
+  └── Placeholders -- 占位符
+Vendors ------------- 第三方框架、库、插件
+Normalize ----------- 标准化
+Typography ---------- 文本版式
+Icons --------------- 图标
+Layout -------------- 布局规则
+Components ---------- UI 组件
+Themes -------------- 主题风格
+Helpers ------------- 辅助工具
+[Pages] ------------- 页面专属样式
+[Print] ------------- 打印样式
+[Shame] ------------- 补丁
+</code></pre>
+<p>变量命名</p>
+<p><code>&#x3C;property>-&#x3C;value>[--componentName]</code></p>
+<p>模块</p>
+<p>命名</p>
+<p><code>&#x3C;component>[-descendant|--modifier]</code></p>
+<pre><code>.component ------------------------------- 组件
+.component-descendant -------------------- 组件子模块
+.component--modifier --------------------- 组件派生类
+.is-state -------------------------------- 组件状态
+.u-util ---------------------------------- 工具
+.js-hook --------------------------------- JavaScript 专属钩子
+.shame-classname ------------------------- 补丁
+</code></pre>
+<p>代码组织</p>
+<pre><code class="language-scss">%model {
+    // minimum equipment
+    
+    .model-descendant {}
+}
+    
+.model {
+    @extend %model;
+    
+  .model-descendant {}
+}
+    
+.model--modifier {
+    @extend %model;
+    
+    .model-descendant {}
+}
+    
+.page--model {}
+    
+.page--model-descendant {}
+</code></pre>
+<p>注解：</p>
+<ul>
+<li>尽量降低选择器的优先级。</li>
+<li>如果 HTML 结构明确，可直接使用元素选择器。</li>
+<li>组件中的行为可以依赖于组件结构。而不同组件拥有相同行为时，可以将 JavaScript 绑定到 .js-hook 上。</li>
+<li>shame 补丁样式集中存放，详细注释并定期修复。</li>
+<li>由于 IE 6 不支持部分常用选择器（如：子选择器.foo > .bar，链式选择器 .foo.bar 等），导致无法使用 .component-descendant.is-state，因此采用.is-component-descendant-state命名约定来弥补不足。</li>
+</ul>
+<h3>JavaScript（事件流）</h3>
+<p>随着用户体验的不断改善，JavaScript 代码的规模也会不断增加，因此建议一开始就进行基本的模块管理，或者使用框架、库来组织代码。</p>
+<h4>Web Site</h4>
+<p>模块分组</p>
+<pre><code>Vendor ----------------------------------- 第三方框架、库、插件
+Util ------------------------------------- 通用工具
+Base ------------------------------------- 应用初始化
+Common ----------------------------------- 全局属性与方法
+Component -------------------------------- 通用 UI 组件
+Business Logic --------------------------- 应用业务逻辑
+Main ------------------------------------- 全局执行代码
+Entry ------------------------------------ 各页面入口
+</code></pre>
+<p>注解：</p>
+<ul>
+<li>Component 完全脱离 Business Logic，并且推荐开源 Component。</li>
+</ul>
+<p>模块实现</p>
+<pre><code class="language-js">/**
+ * @desc Module Organization
+ * @see  http://pinkyjie.com/2013/12/18/rock-your-web-page-in-bakcbone-way/
+ */
+
+// Base
+(function(root, $) {
+  root.App = {
+    view: {}
+  };
+
+  root.$document = $(document);
+  root.$window   = $(window);
+
+  root.EventBus = {
+    trigger: function(event, data) {
+      var e = $.Event(event);
+      e.param = data;
+      $document.trigger(e);
+    },
+
+    on: function(event, callback) {
+      $document.on(event, callback);
+    },
+
+    off: function(event) {
+      $document.off(event);
+    }
+  };
+}(this, jQuery));
+
+
+// Common
+
+
+// Util
+(function(exports, $) {
+  // TODO
+  exports.extend = function() {};
+}(App, jQuery));
+
+
+// Component
+(function(exports, $) {
+  var component = function(element) {
+    this.$el = $(element);
+    this.model = null;
+
+    // TODO
+    _.bindAll(this, 'submit', 'create', 'destroy');
+
+    // 模块内部的交互使用事件委托
+    this.$el
+      .on('submit', 'form', this.submit);
+
+    // 模块与模块之间的交互使用观察者模式
+    EventBus
+      .on('Component:create', this.create)
+      .on('Component:destroy', this.destroy);
+  };
+
+  // TODO
+  _.extend(component.prototype, {
+    render: function() {
+      this.reset();
+      console.log('render');
+    },
+
+    reset: function() {
+      console.log('reset');
+    },
+
+    submit: function() {
+      console.log('submit');
+    },
+
+    create: function(event) {
+      console.log('create');
+    },
+
+    destroy: function(event) {
+      console.log('destroy');
+    }
+  });
+
+  exports.view.component = component;
+}(App, jQuery));
+
+
+// Main
+(function(exports, $) {
+  exports.InitPage = function() {
+    var componentView = new exports.view.component('.component');
+    componentView.render();
+  };
+}(App, jQuery));
+
+// Execution
+// 在 HTML 模板中调用。
+// 之前的模块大部分都是声明，耗时较少。代码只在对应的模板中运行。
+App.InitPage();
+</code></pre>
+<p>模块管理</p>
+<p>使用 AMD、CommonJS 及 ES Harmony 编写模块化的 JavaScript。</p>
+<h4>Web App</h4>
+<p>@TODO</p>
+<p>模块通用化</p>
+<p>在满足应用本身的需求之后，建议将模块从应用中解耦出来，方便集成到其他应用。</p>
+<p>jQuery 插件</p>
+<pre><code class="language-js">/**
+ * @desc jQuery 插件设计模式 - Data API
+ * @see  Bootstrap
+ */
+
+(function($) {
+
+  // Module Public Class Definition
+  // ==============================
+
+  var Module = function(element, options) {
+    this.$element = $(element);
+    this.options  = options;
+  };
+
+  Module.prototype.method = function() {
+    // do something...
+  };
+
+  // Module Default Options
+
+  Module.DEFAULTS = {
+    'key': 'value'
+  };
+
+
+  // Module jQuery Plugin Definition
+  // ===============================
+
+  var old = $.fn.module;
+
+  $.fn.module = function(option) {
+    return this.each(function() {
+      var $this   = $(this),
+          data    = $this.data('module'),
+          options = $.extend(
+            {},
+            Module.DEFAULTS,
+            $this.data(),
+            typeof option == 'object' &#x26;&#x26; option
+          );
+
+      if (!data) $this.data('module', (data = new Module(this, options)));
+      if (typeof option == 'string') data[option]();
+    });
+  };
+
+  $.fn.module.Constructor = Module;
+
+
+  // Module No Conflict
+  // ==================
+
+  $.fn.module.noConflict = function() {
+    $.fn.module = old;
+    return this;
+  };
+
+
+  // Module Data-API
+  // ===============
+
+  $(document).on('event.module.data-api', '[data-toggle="module"]', function(e) {
+    e.preventDefault();
+
+    $(this).module('method');
+    // do something...
+  });
+
+})(jQuery);
+</code></pre>
+<h4>其他</h4>
+<p>省略行末分号</p>
+<p>如果下一行的第一个token是 ( , [ , / , + , - 这五个字符之一的话，JavaScript 将不会自动在上一行句尾加上分号。所以注意这类情况。</p>
+</div></div></article></div></main><footer class="max-w-3xl mx-auto py-6"></footer></div><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"post":{"title":"Web 前端开发风格指南","date":"2015-04-02T15:41:00.000Z","slug":"front-end-web-development-style-guide","content":"\u003cp\u003e风格指南用于统一开发方式与代码书写风格。\u003c/p\u003e\n\u003cp\u003e推荐使用 EditorConfig 来配置编辑器，方便编写统一书写风格的代码。同时使用 Lint 来做代码质量检测。\u003c/p\u003e\n\u003ch2\u003e基本规范\u003c/h2\u003e\n\u003cp\u003e基本规范可引用各语言的社区推荐风格，如：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eGoogle:\u003cul\u003e\n\u003cli\u003eGoogle HTML/CSS Style Guide\u003c/li\u003e\n\u003cli\u003eGoogle JavaScript Style Guide\u003c/li\u003e\n\u003c/ul\u003e\u003c/li\u003e\n\u003cli\u003eGitHub:\u003cul\u003e\n\u003cli\u003eMarkup \u0026#x26; Templates Styleguide\u003c/li\u003e\n\u003cli\u003eCSS Styleguide\u003c/li\u003e\n\u003cli\u003eJavaScript Styleguide\u003c/li\u003e\n\u003c/ul\u003e\u003c/li\u003e\n\u003cli\u003eOther:\u003cul\u003e\n\u003cli\u003eHTML\u003c/li\u003e\n\u003cli\u003eCSS\u003c/li\u003e\n\u003cli\u003eSass\u003c/li\u003e\n\u003cli\u003eJavaScript\u003c/li\u003e\n\u003c/ul\u003e\u003c/li\u003e\n\u003c/ol\u003e\n\u003ch2\u003e注释\u003c/h2\u003e\n\u003cp\u003e应用场景：\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003e模块描述\u003c/li\u003e\n\u003cli\u003e函数方法\u003c/li\u003e\n\u003cli\u003e大段代码\u003c/li\u003e\n\u003cli\u003e复杂算法\u003c/li\u003e\n\u003cli\u003eHack\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e文档化：\u003c/p\u003e\n\u003cp\u003e按照文档规范来书写易于阅读，且能被机器解读的注释，配合使用对应的预处理器，可以自动生成文档。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eKSS\u003c/li\u003e\n\u003cli\u003eJSDoc\u003c/li\u003e\n\u003cli\u003eTomDoc\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e风格：\u003c/p\u003e\n\u003cp\u003ecomment.html\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-html\"\u003e\u0026#x3C;header\u003e\n\u0026#x3C;/header\u003e \u0026#x3C;!-- / header --\u003e\n\n\u0026#x3C;div id=\"wrapper\"\u003e\n\u0026#x3C;/div\u003e \u0026#x3C;!-- / #wrapper --\u003e\n\n\u0026#x3C;div class=\"module\"\u003e\n\u0026#x3C;/div\u003e \u0026#x3C;!-- / .module --\u003e\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ecomment.css\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-css\"\u003e/* ==========================================================================\n   区块注释段\n   ========================================================================== */\n\n/* 子区块注释段\n   -------------------------------------------------------------------------- */\n\n/**\n * 分组注释段\n * 用于多行的释义或文档。\n * 1. 注释1。\n * 2. 注释2。\n */\n\n.selector {\n  property1: value1;  /* 1 */\n  property2: value2;  /* 2 */\n}\n\n/* 基本注释 */\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ecomment.scss\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-scss\"\u003e// ==========================================================================\n// 区块注释段\n// ==========================================================================\n\n// 子区块注释段\n// --------------------------------------------------------------------------\n\n//\n// 分组注释段\n// 用于多行的释义或文档。\n//\n\n// 基本注释\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ecomponent.scss\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-scss\"\u003e// A button suitable for giving a star to someone.\n// Experimental: An alternative signup button styling used in AB Test #195.\n// Deprecated: Styling for legacy wikis. We'll drop support for these wikis on\n// July 13, 2007.\n//\n// :hover             - Subtle hover highlight.\n// .star-given        - A highlight indicating you've already given a star.\n// .star-given:hover  - Subtle hover highlight on top of star-given styling.\n// .disabled          - Dims the button to indicate it cannot be used.\n//\n// Compatible in IE6+, Firefox 2+, Safari 4+.\n// Compatibility untested.\n//\n// Styleguide 2.1.3.\n// No styleguide reference.\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003emixin.scss\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-scss\"\u003e// Creates a linear gradient background, from top to bottom.\n//\n// $start - The color hex at the top.\n// $end   - The color hex at the bottom.\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003ecomment.js\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003e/* ==========================================================================\n   区块注释段\n   ========================================================================== */\n\n/* 子区块注释段\n   -------------------------------------------------------------------------- */\n\n/**\n * 模块简介\n *\n * 具体细节\n *\n * @param    {string}  args1  参数 1。\n * @param    {array}   args2  参数 2。\n * @returns  void\n */\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch2\u003eUI 组件设计模式\u003c/h2\u003e\n\u003cp\u003e相对于以页面为单位的开发方式，建议以构建组件系统的方式来开发。\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eAtomic Design\u003c/li\u003e\n\u003cli\u003eBEM\u003c/li\u003e\n\u003cli\u003eOOCSS\u003c/li\u003e\n\u003cli\u003eSMACSS\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e为了合理划分组件并分离内容、样式、行为，建议采用如下设计模式。\u003c/p\u003e\n\u003cp\u003e原子 － 分子 － 组织 － 模版 － 页面\u003c/p\u003e\n\u003ch3\u003eHTML（语义）\u003c/h3\u003e\n\u003cp\u003eclass 区分 UI 与业务，使用attribute加强语义与配置行为。\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-html\"\u003e\u0026#x3C;div class=\"model component\" attribute=\"value\" data-attribute=\"value\"\u003e\n  \u0026#x3C;div class=\"component-descendant\"\u003e\n    ...\n  \u0026#x3C;/div\u003e\n\u0026#x3C;/div\u003e\u0026#x3C;!-- / .component --\u003e\n    \n\u0026#x3C;div class=\"component--modifier\" data-attribute=\"value\"\u003e\n  \u0026#x3C;div class=\"component-descendant is-state\"\u003e\n    ...\n  \u0026#x3C;/div\u003e\n\u0026#x3C;/div\u003e\u0026#x3C;!-- / .component--modifier --\u003e\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch3\u003eCSS（组件）\u003c/h3\u003e\n\u003cp\u003e规则书写\u003c/p\u003e\n\u003col\u003e\n\u003cli\u003eLayout: The position of the element in space. Eg.: position, top, z-index.\u003c/li\u003e\n\u003cli\u003eBox: The element itself. Eg.: display, overflow, box-sizing.\u003c/li\u003e\n\u003cli\u003eVisual: Design of the element. Eg.: color, border, background.\u003c/li\u003e\n\u003cli\u003eType: Typesetting of the element. Eg.: font-family, text-transform.\u003c/li\u003e\n\u003c/ol\u003e\n\u003cp\u003e模块分组\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eAbstracts ----------- 抽象\n  ├── Variables ----- 变量\n  |   └── Palette --- 调色盘\n  ├── Functions ----- 函数\n  ├── Mixins -------- 混合宏\n  └── Placeholders -- 占位符\nVendors ------------- 第三方框架、库、插件\nNormalize ----------- 标准化\nTypography ---------- 文本版式\nIcons --------------- 图标\nLayout -------------- 布局规则\nComponents ---------- UI 组件\nThemes -------------- 主题风格\nHelpers ------------- 辅助工具\n[Pages] ------------- 页面专属样式\n[Print] ------------- 打印样式\n[Shame] ------------- 补丁\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e变量命名\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003e\u0026#x3C;property\u003e-\u0026#x3C;value\u003e[--componentName]\u003c/code\u003e\u003c/p\u003e\n\u003cp\u003e模块\u003c/p\u003e\n\u003cp\u003e命名\u003c/p\u003e\n\u003cp\u003e\u003ccode\u003e\u0026#x3C;component\u003e[-descendant|--modifier]\u003c/code\u003e\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003e.component ------------------------------- 组件\n.component-descendant -------------------- 组件子模块\n.component--modifier --------------------- 组件派生类\n.is-state -------------------------------- 组件状态\n.u-util ---------------------------------- 工具\n.js-hook --------------------------------- JavaScript 专属钩子\n.shame-classname ------------------------- 补丁\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e代码组织\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-scss\"\u003e%model {\n    // minimum equipment\n    \n    .model-descendant {}\n}\n    \n.model {\n    @extend %model;\n    \n  .model-descendant {}\n}\n    \n.model--modifier {\n    @extend %model;\n    \n    .model-descendant {}\n}\n    \n.page--model {}\n    \n.page--model-descendant {}\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e注解：\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003e尽量降低选择器的优先级。\u003c/li\u003e\n\u003cli\u003e如果 HTML 结构明确，可直接使用元素选择器。\u003c/li\u003e\n\u003cli\u003e组件中的行为可以依赖于组件结构。而不同组件拥有相同行为时，可以将 JavaScript 绑定到 .js-hook 上。\u003c/li\u003e\n\u003cli\u003eshame 补丁样式集中存放，详细注释并定期修复。\u003c/li\u003e\n\u003cli\u003e由于 IE 6 不支持部分常用选择器（如：子选择器.foo \u003e .bar，链式选择器 .foo.bar 等），导致无法使用 .component-descendant.is-state，因此采用.is-component-descendant-state命名约定来弥补不足。\u003c/li\u003e\n\u003c/ul\u003e\n\u003ch3\u003eJavaScript（事件流）\u003c/h3\u003e\n\u003cp\u003e随着用户体验的不断改善，JavaScript 代码的规模也会不断增加，因此建议一开始就进行基本的模块管理，或者使用框架、库来组织代码。\u003c/p\u003e\n\u003ch4\u003eWeb Site\u003c/h4\u003e\n\u003cp\u003e模块分组\u003c/p\u003e\n\u003cpre\u003e\u003ccode\u003eVendor ----------------------------------- 第三方框架、库、插件\nUtil ------------------------------------- 通用工具\nBase ------------------------------------- 应用初始化\nCommon ----------------------------------- 全局属性与方法\nComponent -------------------------------- 通用 UI 组件\nBusiness Logic --------------------------- 应用业务逻辑\nMain ------------------------------------- 全局执行代码\nEntry ------------------------------------ 各页面入口\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e注解：\u003c/p\u003e\n\u003cul\u003e\n\u003cli\u003eComponent 完全脱离 Business Logic，并且推荐开源 Component。\u003c/li\u003e\n\u003c/ul\u003e\n\u003cp\u003e模块实现\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003e/**\n * @desc Module Organization\n * @see  http://pinkyjie.com/2013/12/18/rock-your-web-page-in-bakcbone-way/\n */\n\n// Base\n(function(root, $) {\n  root.App = {\n    view: {}\n  };\n\n  root.$document = $(document);\n  root.$window   = $(window);\n\n  root.EventBus = {\n    trigger: function(event, data) {\n      var e = $.Event(event);\n      e.param = data;\n      $document.trigger(e);\n    },\n\n    on: function(event, callback) {\n      $document.on(event, callback);\n    },\n\n    off: function(event) {\n      $document.off(event);\n    }\n  };\n}(this, jQuery));\n\n\n// Common\n\n\n// Util\n(function(exports, $) {\n  // TODO\n  exports.extend = function() {};\n}(App, jQuery));\n\n\n// Component\n(function(exports, $) {\n  var component = function(element) {\n    this.$el = $(element);\n    this.model = null;\n\n    // TODO\n    _.bindAll(this, 'submit', 'create', 'destroy');\n\n    // 模块内部的交互使用事件委托\n    this.$el\n      .on('submit', 'form', this.submit);\n\n    // 模块与模块之间的交互使用观察者模式\n    EventBus\n      .on('Component:create', this.create)\n      .on('Component:destroy', this.destroy);\n  };\n\n  // TODO\n  _.extend(component.prototype, {\n    render: function() {\n      this.reset();\n      console.log('render');\n    },\n\n    reset: function() {\n      console.log('reset');\n    },\n\n    submit: function() {\n      console.log('submit');\n    },\n\n    create: function(event) {\n      console.log('create');\n    },\n\n    destroy: function(event) {\n      console.log('destroy');\n    }\n  });\n\n  exports.view.component = component;\n}(App, jQuery));\n\n\n// Main\n(function(exports, $) {\n  exports.InitPage = function() {\n    var componentView = new exports.view.component('.component');\n    componentView.render();\n  };\n}(App, jQuery));\n\n// Execution\n// 在 HTML 模板中调用。\n// 之前的模块大部分都是声明，耗时较少。代码只在对应的模板中运行。\nApp.InitPage();\n\u003c/code\u003e\u003c/pre\u003e\n\u003cp\u003e模块管理\u003c/p\u003e\n\u003cp\u003e使用 AMD、CommonJS 及 ES Harmony 编写模块化的 JavaScript。\u003c/p\u003e\n\u003ch4\u003eWeb App\u003c/h4\u003e\n\u003cp\u003e@TODO\u003c/p\u003e\n\u003cp\u003e模块通用化\u003c/p\u003e\n\u003cp\u003e在满足应用本身的需求之后，建议将模块从应用中解耦出来，方便集成到其他应用。\u003c/p\u003e\n\u003cp\u003ejQuery 插件\u003c/p\u003e\n\u003cpre\u003e\u003ccode class=\"language-js\"\u003e/**\n * @desc jQuery 插件设计模式 - Data API\n * @see  Bootstrap\n */\n\n(function($) {\n\n  // Module Public Class Definition\n  // ==============================\n\n  var Module = function(element, options) {\n    this.$element = $(element);\n    this.options  = options;\n  };\n\n  Module.prototype.method = function() {\n    // do something...\n  };\n\n  // Module Default Options\n\n  Module.DEFAULTS = {\n    'key': 'value'\n  };\n\n\n  // Module jQuery Plugin Definition\n  // ===============================\n\n  var old = $.fn.module;\n\n  $.fn.module = function(option) {\n    return this.each(function() {\n      var $this   = $(this),\n          data    = $this.data('module'),\n          options = $.extend(\n            {},\n            Module.DEFAULTS,\n            $this.data(),\n            typeof option == 'object' \u0026#x26;\u0026#x26; option\n          );\n\n      if (!data) $this.data('module', (data = new Module(this, options)));\n      if (typeof option == 'string') data[option]();\n    });\n  };\n\n  $.fn.module.Constructor = Module;\n\n\n  // Module No Conflict\n  // ==================\n\n  $.fn.module.noConflict = function() {\n    $.fn.module = old;\n    return this;\n  };\n\n\n  // Module Data-API\n  // ===============\n\n  $(document).on('event.module.data-api', '[data-toggle=\"module\"]', function(e) {\n    e.preventDefault();\n\n    $(this).module('method');\n    // do something...\n  });\n\n})(jQuery);\n\u003c/code\u003e\u003c/pre\u003e\n\u003ch4\u003e其他\u003c/h4\u003e\n\u003cp\u003e省略行末分号\u003c/p\u003e\n\u003cp\u003e如果下一行的第一个token是 ( , [ , / , + , - 这五个字符之一的话，JavaScript 将不会自动在上一行句尾加上分号。所以注意这类情况。\u003c/p\u003e\n","ogImage":{"url":""}}},"__N_SSG":true},"page":"/posts/[slug]","query":{"slug":"front-end-web-development-style-guide"},"buildId":"dvgtv3hcyTARkNgObVzCG","nextExport":false,"isFallback":false,"gsp":true,"head":[["meta",{"name":"viewport","content":"width=device-width"}],["meta",{"charSet":"utf-8"}],["link",{"rel":"apple-touch-icon","sizes":"180x180","href":"/favicon/apple-touch-icon.png"}],["link",{"rel":"icon","type":"image/png","sizes":"32x32","href":"/favicon/favicon-32x32.png"}],["link",{"rel":"icon","type":"image/png","sizes":"16x16","href":"/favicon/favicon-16x16.png"}],["link",{"rel":"manifest","href":"/favicon/site.webmanifest"}],["link",{"rel":"mask-icon","href":"/favicon/safari-pinned-tab.svg","color":"#000000"}],["link",{"rel":"shortcut icon","href":"/favicon/favicon.ico"}],["meta",{"name":"msapplication-TileColor","content":"#000000"}],["meta",{"name":"msapplication-config","content":"/favicon/browserconfig.xml"}],["meta",{"name":"theme-color","content":"#000"}],["link",{"rel":"alternate","type":"application/rss+xml","href":"/feed.xml"}],["meta",{"name":"description","content":"Anything worth spreading."}],["meta",{"property":"og:image","content":"https://og-image.now.sh/Next.js%20Blog%20Starter%20Example.png?theme=light\u0026md=1\u0026fontSize=100px\u0026images=https%3A%2F%2Fassets.vercel.com%2Fimage%2Fupload%2Ffront%2Fassets%2Fdesign%2Fnextjs-black-logo.svg"}],["title",{"children":"Web 前端开发风格指南 | Honk"}],["meta",{"property":"og:image","content":""}]]}</script><script nomodule="" src="/_next/static/chunks/polyfills-11c8eba6a84e3fddec04.js"></script><script src="/_next/static/chunks/main-3b2c4af7ee14fea01ffe.js" async=""></script><script src="/_next/static/chunks/webpack-e067438c4cf4ef2ef178.js" async=""></script><script src="/_next/static/chunks/framework.2113c6061a2f456066a1.js" async=""></script><script src="/_next/static/chunks/commons.65db85aa1f84ff9c0177.js" async=""></script><script src="/_next/static/chunks/pages/_app-8fb9a5f2ab428e436983.js" async=""></script><script src="/_next/static/chunks/2c3b9bffc7150b37a7b3810dfcf1c0b0fac2bd18.855a750fb79d561ab70f.js" async=""></script><script src="/_next/static/chunks/pages/posts/%5Bslug%5D-93c9decfcd8617254856.js" async=""></script><script src="/_next/static/dvgtv3hcyTARkNgObVzCG/_buildManifest.js" async=""></script><script src="/_next/static/dvgtv3hcyTARkNgObVzCG/_ssgManifest.js" async=""></script></body></html>
